@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyTripToSpain — Viajes a España para hermanos</title>
+<meta name="description" content="Packs de viaje de 3 a 10 días a Barcelona, Madrid, Sevilla y el norte de España. Alojamiento en Airbnb con hermanos, desayuno, transporte e itinerario completo. Conoce a otros hermanos y disfruta de España como un local.">
+<link rel="icon" type="image/png" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#B5442A;
+    --primary-dark:#8E3018;
+    --accent:#E9B44C;
+    --dark:#2B2118;
+    --cream:#FAF3E7;
+    --white:#FFFFFF;
+    --grey:#6B6259;
+    --radius:16px;
+    --shadow:0 10px 30px rgba(43,33,24,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--dark);background:var(--cream);line-height:1.6}
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif;line-height:1.2}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1100px;margin:0 auto;padding:0 24px}
+  section{padding:72px 0}
+  .section-tag{display:inline-block;background:rgba(181,68,42,.1);color:var(--primary);font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:14px}
+  .section-title{font-size:clamp(1.7rem,3.5vw,2.4rem);margin-bottom:12px}
+  .section-sub{color:var(--grey);max-width:640px;margin-bottom:40px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:100;background:rgba(250,243,231,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(43,33,24,.08)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-family:'Playfair Display',serif;font-weight:800;font-size:1.25rem;display:inline-flex;align-items:center;gap:10px}
+  .logo img{height:38px;width:38px;border-radius:50%;display:block}
+  .logo span{color:var(--primary)}
+  .nav-links{display:flex;gap:26px;font-size:.92rem;font-weight:500}
+  .nav-links a:hover{color:var(--primary)}
+  .lang-switch{display:flex;gap:4px;background:var(--white);border:1px solid rgba(43,33,24,.12);border-radius:999px;padding:3px}
+  .lang-switch button{border:0;background:transparent;font:inherit;font-size:.8rem;font-weight:600;padding:5px 10px;border-radius:999px;cursor:pointer;color:var(--grey)}
+  .lang-switch button.active{background:var(--primary);color:var(--white)}
+
+  /* Hero */
+  .hero{background:linear-gradient(rgba(25,16,8,.5),rgba(25,16,8,.62)),url('img/hero.jpg') center/cover no-repeat,linear-gradient(160deg,#3B2A1E 0%,#6E3018 55%,#B5442A 100%);color:var(--white);padding:96px 0 110px;position:relative;overflow:hidden}
+  .hero .container{position:relative;z-index:1}
+  .hero-badge{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 16px;border-radius:999px;font-size:.85rem;margin-bottom:22px}
+  .hero h1{font-size:clamp(2.1rem,5vw,3.4rem);max-width:760px;margin-bottom:18px}
+  .hero h1 em{color:var(--accent);font-style:normal}
+  .hero p{max-width:620px;font-size:1.08rem;color:rgba(255,255,255,.88);margin-bottom:34px}
+  .btn{display:inline-block;padding:14px 30px;border-radius:999px;font-weight:600;font-size:.98rem;transition:transform .15s ease,box-shadow .15s ease;cursor:pointer;border:0}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--accent);color:var(--dark);box-shadow:0 8px 24px rgba(233,180,76,.35)}
+  .btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.5);margin-left:12px}
+  .hero-stats{display:flex;gap:40px;margin-top:52px;flex-wrap:wrap}
+  .hero-stats div strong{display:block;font-size:1.5rem;font-family:'Playfair Display',serif;color:var(--accent)}
+  .hero-stats div span{font-size:.85rem;color:rgba(255,255,255,.75)}
+
+  /* Features */
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+  .feature{background:var(--white);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+  .feature .icon{font-size:1.9rem;margin-bottom:14px}
+  .feature h3{font-size:1.08rem;margin-bottom:8px}
+  .feature p{font-size:.92rem;color:var(--grey)}
+
+  /* Cities */
+  .cities{background:var(--white)}
+  .cities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .city{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:var(--cream);display:flex;flex-direction:column}
+  .city-img{height:190px;display:flex;align-items:flex-end;padding:18px;color:var(--white);font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,.45);background-size:cover;background-position:center}
+  .city.bcn .city-img{background-image:linear-gradient(rgba(20,40,70,.2),rgba(20,40,70,.55)),url('img/barcelona.jpg'),linear-gradient(135deg,#1E5F8E,#3FA7D6)}
+  .city.svq .city-img{background-image:linear-gradient(rgba(120,60,10,.2),rgba(120,60,10,.5)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Plaza%20de%20Espana%20-%20Sevilla.jpg?width=1200'),linear-gradient(135deg,#C1611F,#E9B44C)}
+  .city.mad .city-img{background-image:linear-gradient(rgba(90,20,30,.2),rgba(90,20,30,.5)),url('https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=900&q=60'),linear-gradient(135deg,#7C2230,#B5442A)}
+  .city.nor .city-img{background-image:linear-gradient(rgba(15,60,40,.2),rgba(15,60,40,.5)),url('img/cala-norte.jpg'),linear-gradient(135deg,#1E6E4E,#7FB77E)}
+  .city.alc .city-img{background-image:linear-gradient(rgba(60,40,10,.2),rgba(60,40,10,.5)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Universidad%20de%20Alcal%C3%A1%20de%20Henares.%20Fachada.jpg?width=1200'),linear-gradient(135deg,#8A6D3B,#C9A227)}
+  .city.tol .city-img{background-image:linear-gradient(rgba(70,45,25,.2),rgba(70,45,25,.5)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Toledo%20Skyline%20Panorama%2C%20Spain%20-%20Dec%202006.jpg?width=1200'),url('https://images.unsplash.com/photo-1561632669-7f55f7975606?auto=format&fit=crop&w=900&q=60'),linear-gradient(135deg,#7A5230,#B08968)}
+  .city.arj .city-img{background-image:linear-gradient(rgba(20,60,30,.2),rgba(20,60,30,.5)),url('img/aranjuez.jpg'),linear-gradient(135deg,#2F6B3C,#8FBC8F)}
+  .city.pra .city-img{background-image:linear-gradient(rgba(90,20,30,.2),rgba(90,20,30,.5)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Museo%20del%20Prado%20(Madrid)%2020.jpg?width=1200'),linear-gradient(135deg,#7C2230,#B5442A)}
+  .city-img.car{position:relative;overflow:hidden}
+  .city-img.car .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .7s ease;z-index:0}
+  .city-img.car .slide.active{opacity:1}
+  .city-img.car::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.03),rgba(0,0,0,.5));z-index:1;pointer-events:none}
+  .c-label{position:relative;z-index:2}
+  .c-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:32px;height:32px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:1.2rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .c-btn:hover{background:rgba(0,0,0,.7)}
+  .c-prev{left:10px}
+  .c-next{right:10px}
+  .city-body{padding:24px;flex:1}
+  .city-body p{font-size:.92rem;color:var(--grey);margin-bottom:14px}
+  .city-body ul{list-style:none;font-size:.9rem}
+  .city-body li{padding:6px 0 6px 26px;position:relative}
+  .city-body li::before{content:"✦";position:absolute;left:2px;color:var(--primary)}
+
+  /* Packs */
+  .packs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;align-items:stretch}
+  .pack{background:var(--white);border-radius:var(--radius);padding:34px 30px;box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column;border:2px solid transparent}
+  .pack.highlight{border-color:var(--accent);transform:scale(1.02)}
+  .pack-flag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--dark);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:999px;white-space:nowrap}
+  .pack-flag.soon{background:#E7DFD1;color:var(--grey)}
+  .pack.soon-pack{opacity:.85}
+  .pack h3{font-size:1.35rem;margin-bottom:4px}
+  .pack .pack-city{color:var(--grey);font-size:.9rem;margin-bottom:18px}
+  .pack .price{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--primary)}
+  .pack .price small{font-size:.85rem;font-family:'Inter',sans-serif;font-weight:500;color:var(--grey)}
+  .pack ul{list-style:none;margin:22px 0;flex:1;font-size:.92rem}
+  .pack li{padding:7px 0 7px 28px;position:relative}
+  .pack li::before{content:"✓";position:absolute;left:2px;color:var(--primary);font-weight:700}
+  .pack .btn{width:100%;text-align:center;background:var(--primary);color:var(--white)}
+  .pack .btn:hover{background:var(--primary-dark)}
+  .packs-note{text-align:center;color:var(--grey);font-size:.85rem;margin-top:26px}
+  .price .from{display:inline-block;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:600;color:var(--grey);margin-right:4px}
+  .pack .inc{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);margin-top:20px}
+  .pack .inc + ul{margin-top:8px}
+  .extras-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:36px}
+  .extra-card{background:var(--white);border:2px dashed rgba(181,68,42,.4);border-radius:var(--radius);padding:28px}
+  .extra-card h3{font-size:1.08rem;margin-bottom:8px}
+  .extra-card p{font-size:.92rem;color:var(--grey)}
+  .referral{background:linear-gradient(135deg,#E9B44C,#F2CE82)}
+  .referral .section-tag{background:rgba(43,33,24,.12);color:var(--dark)}
+  .referral p{max-width:620px;margin-bottom:28px;color:#4A3A20}
+  .referral .btn{background:var(--dark);color:var(--white)}
+  label.check{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:.9rem;font-weight:500}
+  .check input{width:auto;accent-color:var(--primary)}
+
+  /* Itinerary */
+  .itinerary{background:var(--white)}
+  .timeline{border-left:3px solid var(--accent);margin-left:8px;padding-left:28px}
+  .tl-item{position:relative;padding-bottom:26px}
+  .tl-item::before{content:"";position:absolute;left:-37px;top:5px;width:15px;height:15px;border-radius:50%;background:var(--primary);border:3px solid var(--cream)}
+  .tl-item h3{font-size:1.02rem;margin-bottom:4px}
+  .tl-item h3 span{color:var(--primary);margin-right:8px}
+  .tl-item p{font-size:.92rem;color:var(--grey)}
+
+  /* Spiritual */
+  .spiritual{background:linear-gradient(150deg,#2B2118,#4A3320);color:var(--white)}
+  .spiritual .section-tag{background:rgba(233,180,76,.15);color:var(--accent)}
+  .spiritual .section-sub{color:rgba(255,255,255,.75)}
+  .spiritual .features-grid .feature{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+  .spiritual .feature h3{color:var(--accent)}
+  .spiritual .feature p{color:rgba(255,255,255,.78)}
+
+  /* Gallery */
+  .gallery{background:var(--white)}
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+  .gallery-grid figure{margin:0;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);position:relative;aspect-ratio:1/1;background:var(--cream)}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+  .gallery-grid figure:hover img{transform:scale(1.05)}
+  .gallery-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.65));color:#fff;font-size:.78rem;font-weight:500}
+
+  /* FAQ */
+  .faq details{background:var(--white);border-radius:12px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+  .faq summary{padding:18px 22px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .faq summary::after{content:"+";font-size:1.3rem;color:var(--primary)}
+  .faq details[open] summary::after{content:"–"}
+  .faq details p{padding:0 22px 18px;color:var(--grey);font-size:.94rem}
+
+  /* Contact */
+  .contact{background:var(--white)}
+  .contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:44px;align-items:start}
+  .contact-info h2{margin-bottom:14px}
+  .contact-info p{color:var(--grey);margin-bottom:22px}
+  .wa-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:14px 26px;border-radius:999px;font-weight:600}
+  .wa-btn:hover{background:#1EBE5A}
+  .insta-link{display:inline-flex;align-items:center;gap:10px;margin-top:16px;font-weight:600;font-size:1rem;padding:14px 26px;border-radius:999px;color:#fff;transition:transform .15s ease}
+  .insta-link:hover{transform:translateY(-2px)}
+  .insta-link.ig{background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF)}
+  .insta-link.tp{background:#00B67A}
+  form{background:var(--cream);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  label{font-size:.82rem;font-weight:600;display:block;margin:14px 0 6px}
+  input,select,textarea{width:100%;padding:12px 14px;border:1px solid rgba(43,33,24,.15);border-radius:10px;font:inherit;font-size:.92rem;background:var(--white)}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent)}
+  form .btn{width:100%;margin-top:20px;background:var(--primary);color:var(--white)}
+  form .btn:hover{background:var(--primary-dark)}
+  .form-note{font-size:.78rem;color:var(--grey);margin-top:12px;text-align:center}
+
+  /* Footer */
+  footer{background:var(--dark);color:rgba(255,255,255,.75);padding:44px 0;font-size:.88rem}
+  footer .container{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer .logo{color:var(--white)}
+  .disclaimer{font-size:.78rem;max-width:480px;color:rgba(255,255,255,.5)}
+
+  /* Floating WhatsApp */
+  .wa-float{position:fixed;bottom:24px;right:24px;z-index:99;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:1.7rem}
+
+  @media(max-width:820px){
+    .nav-links{display:none}
+    .contact-wrap{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    .pack.highlight{transform:none}
+    section{padding:56px 0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="logo"><img src="img/logo.png" alt="Logo MyTripToSpain">MyTrip<span>ToSpain</span></a>
+    <nav class="nav-links">
+      <a href="#ciudades" data-es="Ciudades" data-en="Cities" data-pt="Cidades">Ciudades</a>
+      <a href="#packs" data-es="Packs" data-en="Packages" data-pt="Pacotes">Packs</a>
+      <a href="#itinerario" data-es="Itinerario" data-en="Itinerary" data-pt="Roteiro">Itinerario</a>
+      <a href="#espiritual" data-es="Actividades" data-en="Activities" data-pt="Atividades">Actividades</a>
+      <a href="#referidos" data-es="Referidos" data-en="Referrals" data-pt="Indicações">Referidos</a>
+      <a href="#contacto" data-es="Contacto" data-en="Contact" data-pt="Contato">Contacto</a>
+    </nav>
+    <div class="lang-switch">
+      <button data-lang="es" class="active" onclick="setLang('es')">ES</button>
+      <button data-lang="en" onclick="setLang('en')">EN</button>
+      <button data-lang="pt" onclick="setLang('pt')">PT</button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="container">
+    <span class="hero-badge" data-es="✦ Viajes en grupo para hermanos de todo el mundo"
+      data-en="✦ Group trips for brothers and sisters from around the world"
+      data-pt="✦ Viagens em grupo para irmãos do mundo inteiro">✦ Viajes en grupo para hermanos de todo el mundo</span>
+    <h1 data-es="Descubre España en pocos días, <em>entre hermanos</em>"
+        data-en="Discover Spain in just a few days, <em>among brothers</em>"
+        data-pt="Descubra a Espanha em poucos dias, <em>entre irmãos</em>">Descubre España en pocos días, <em>entre hermanos</em></h1>
+    <p data-es="Packs de 3 a 10 días por Madrid, Barcelona, Sevilla y el norte de España: alojamiento en Airbnb con hermanos, desayuno, transporte desde el aeropuerto e itinerario completo con museos, lugares con interés en la historia bíblica, comida local y tiempo para compartir con las congregaciones."
+       data-en="3 to 10-day packages across Madrid, Barcelona, Seville and northern Spain: Airbnb stays with brothers, breakfast, airport transfers and a complete itinerary with museums, sites of biblical-history interest, local food and time to share with local congregations."
+       data-pt="Pacotes de 3 a 10 dias por Madri, Barcelona, Sevilha e o norte da Espanha: hospedagem em Airbnb com irmãos, café da manhã, transporte do aeroporto e roteiro completo com museus, lugares de interesse na história bíblica, comida local e tempo para conviver com as congregações.">Packs de 3 a 10 días por Madrid, Barcelona, Sevilla y el norte de España: alojamiento en Airbnb con hermanos, desayuno, transporte desde el aeropuerto e itinerario completo con museos, lugares con interés en la historia bíblica, comida local y tiempo para compartir con las congregaciones.</p>
+    <a href="#packs" class="btn btn-primary" data-es="Ver packs de viaje" data-en="See travel packages" data-pt="Ver pacotes de viagem">Ver packs de viaje</a>
+    <a href="#contacto" class="btn btn-ghost" data-es="Pedir información" data-en="Request info" data-pt="Pedir informações">Pedir información</a>
+    <div class="hero-stats">
+      <div><strong>3 · 5 · 7 · 10</strong><span data-es="días, tú eliges" data-en="days, you choose" data-pt="dias, você escolhe">días, tú eliges</span></div>
+      <div><strong>7</strong><span data-es="ciudades increíbles" data-en="amazing cities" data-pt="cidades incríveis">ciudades increíbles</span></div>
+      <div><strong>100%</strong><span data-es="transporte incluido" data-en="transport included" data-pt="transporte incluído">transporte incluido</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="porque">
+  <div class="container">
+    <span class="section-tag" data-es="Por qué con nosotros" data-en="Why travel with us" data-pt="Por que conosco">Por qué con nosotros</span>
+    <h2 class="section-title" data-es="Ver lo máximo, sin preocuparte de nada"
+        data-en="See the most, without worrying about anything"
+        data-pt="Ver o máximo, sem se preocupar com nada">Ver lo máximo, sin preocuparte de nada</h2>
+    <p class="section-sub" data-es="Pensado para quien tiene pocos días y quiere aprovecharlos al máximo: nosotros organizamos todo desde que aterrizas."
+       data-en="Designed for those with only a few days who want to make the most of them: we organize everything from the moment you land."
+       data-pt="Pensado para quem tem poucos dias e quer aproveitá-los ao máximo: organizamos tudo desde o momento em que você aterrissa.">Pensado para quien tiene pocos días y quiere aprovecharlos al máximo: nosotros organizamos todo desde que aterrizas.</p>
+    <div class="features-grid">
+      <div class="feature"><div class="icon">🛬</div>
+        <h3 data-es="Sin preocupaciones desde el aeropuerto" data-en="Stress-free from the airport" data-pt="Sem preocupações desde o aeroporto">Sin preocupaciones desde el aeropuerto</h3>
+        <p data-es="Te recogemos al aterrizar y nos ocupamos de todos los traslados: alojamiento, visitas, excursiones y vuelta al aeropuerto." data-en="We pick you up when you land and handle every transfer: accommodation, visits, excursions and back to the airport." data-pt="Buscamos você no desembarque e cuidamos de todos os traslados: hospedagem, visitas, passeios e volta ao aeroporto.">Te recogemos al aterrizar y nos ocupamos de todos los traslados: alojamiento, visitas, excursiones y vuelta al aeropuerto.</p></div>
+      <div class="feature"><div class="icon">🤝</div>
+        <h3 data-es="Conoce a otros hermanos" data-en="Meet other brothers and sisters" data-pt="Conheça outros irmãos">Conoce a otros hermanos</h3>
+        <p data-es="Viaja en grupo con hermanos de otros países y comparte con las congregaciones locales durante tu estancia." data-en="Travel in a group with brothers from other countries and share with local congregations during your stay." data-pt="Viaje em grupo com irmãos de outros países e conviva com as congregações locais durante a sua estadia.">Viaja en grupo con hermanos de otros países y comparte con las congregaciones locales durante tu estancia.</p></div>
+      <div class="feature"><div class="icon">📜</div>
+        <h3 data-es="Historia bíblica en España" data-en="Biblical history in Spain" data-pt="História bíblica na Espanha">Historia bíblica en España</h3>
+        <p data-es="Visita lugares únicos: la huella de Casiodoro de Reina y la Biblia del Oso, manuscritos antiguos y museos con piezas de las tierras bíblicas." data-en="Visit unique sites: the legacy of Casiodoro de Reina and the 'Biblia del Oso', ancient manuscripts and museums with artifacts from Bible lands." data-pt="Visite lugares únicos: o legado de Casiodoro de Reina e a 'Biblia del Oso', manuscritos antigos e museus com peças das terras bíblicas.">Visita lugares únicos: la huella de Casiodoro de Reina y la Biblia del Oso, manuscritos antiguos y museos con piezas de las tierras bíblicas.</p></div>
+      <div class="feature"><div class="icon">🥘</div>
+        <h3 data-es="Come y disfruta como un local" data-en="Eat and enjoy like a local" data-pt="Coma e aproveite como um local">Come y disfruta como un local</h3>
+        <p data-es="Nada de trampas para turistas: tapas, mercados y rincones donde comen los españoles de verdad." data-en="No tourist traps: tapas, markets and the spots where Spaniards actually eat." data-pt="Nada de armadilhas para turistas: tapas, mercados e cantinhos onde os espanhóis realmente comem.">Nada de trampas para turistas: tapas, mercados y rincones donde comen los españoles de verdad.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ciudades" class="cities">
+  <div class="container">
+    <span class="section-tag" data-es="Los destinos" data-en="Destinations" data-pt="Os destinos">Los destinos</span>
+    <h2 class="section-title" data-es="Cuatro destinos, cuatro Españas" data-en="Four destinations, four Spains" data-pt="Quatro destinos, quatro Espanhas">Cuatro destinos, cuatro Españas</h2>
+    <div class="cities-grid">
+      <div class="city mad">
+        <div class="city-img car">
+          <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=900&q=60')"></div>
+          <div class="slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Museo%20del%20Prado%20(Madrid)%2020.jpg?width=1200')"></div>
+          <div class="slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Toledo%20Skyline%20Panorama%2C%20Spain%20-%20Dec%202006.jpg?width=1200')"></div>
+          <div class="slide" style="background-image:url('img/aranjuez.jpg')"></div>
+          <div class="slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Universidad%20de%20Alcal%C3%A1%20de%20Henares.%20Fachada.jpg?width=1200')"></div>
+          <button class="c-btn c-prev" aria-label="Anterior">&#8249;</button>
+          <button class="c-btn c-next" aria-label="Siguiente">&#8250;</button>
+          <span class="c-label">Madrid</span>
+        </div>
+        <div class="city-body">
+          <p data-es="Capital de museos de primer nivel, historia de la Biblia en España y vida en las calles hasta tarde." data-en="A capital of world-class museums, Bible history in Spain and street life until late." data-pt="Capital de museus de primeiro nível, história da Bíblia na Espanha e vida nas ruas até tarde.">Capital de museos de primer nivel, historia de la Biblia en España y vida en las calles hasta tarde.</p>
+          <ul>
+            <li data-es="Museo Arqueológico: piezas del antiguo Oriente" data-en="Archaeological Museum: ancient Near East artifacts" data-pt="Museu Arqueológico: peças do antigo Oriente">Museo Arqueológico: piezas del antiguo Oriente</li>
+            <li data-es="El Prado y el parque del Retiro" data-en="The Prado and Retiro Park" data-pt="O Prado e o parque do Retiro">El Prado y el parque del Retiro</li>
+            <li data-es="Excursión a Alcalá de Henares: Biblia Políglota Complutense" data-en="Trip to Alcalá de Henares: Complutensian Polyglot Bible" data-pt="Passeio a Alcalá de Henares: Bíblia Poliglota Complutense">Excursión a Alcalá de Henares: Biblia Políglota Complutense</li>
+            <li data-es="Mercado de San Miguel y cocido madrileño" data-en="San Miguel Market and 'cocido madrileño'" data-pt="Mercado de San Miguel e 'cocido madrileño'">Mercado de San Miguel y cocido madrileño</li>
+          </ul>
+        </div>
+      </div>
+      <div class="city nor">
+        <div class="city-img car">
+          <div class="slide active" style="background-image:url('img/leon.jpg')"></div>
+          <div class="slide" style="background-image:url('img/santander.jpg')"></div>
+          <div class="slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Playa%20Sardinero%20-%20Santander%20-%20Spain.jpg?width=1200')"></div>
+          <div class="slide" style="background-image:url('img/cala-norte.jpg')"></div>
+          <button class="c-btn c-prev" aria-label="Anterior">&#8249;</button>
+          <button class="c-btn c-next" aria-label="Siguiente">&#8250;</button>
+          <span class="c-label" data-es="Norte de España" data-en="North of Spain" data-pt="Norte da Espanha">Norte de España</span>
+        </div>
+        <div class="city-body">
+          <p data-es="El norte verde en 3 días: León, Oviedo, Gijón y Santander entre mar Cantábrico, montaña y la mejor mesa de España." data-en="The green north in 3 days: León, Oviedo, Gijón and Santander amid the Cantabrian Sea, mountains and Spain's finest food." data-pt="O norte verde em 3 dias: León, Oviedo, Gijón e Santander entre o mar Cantábrico, a montanha e a melhor mesa da Espanha.">El norte verde en 3 días: León, Oviedo, Gijón y Santander entre mar Cantábrico, montaña y la mejor mesa de España.</p>
+          <ul>
+            <li data-es="León: Biblia mozárabe del año 960 en San Isidoro" data-en="León: 10th-century Mozarabic Bible at San Isidoro" data-pt="León: Bíblia moçárabe do ano 960 em San Isidoro">León: Biblia mozárabe del año 960 en San Isidoro</li>
+            <li data-es="Oviedo prerrománico y sidrerías de Gijón" data-en="Pre-Romanesque Oviedo and Gijón's cider houses" data-pt="Oviedo pré-românico e sidrarias de Gijón">Oviedo prerrománico y sidrerías de Gijón</li>
+            <li data-es="Playa de San Lorenzo y bahía de Santander" data-en="San Lorenzo beach and the bay of Santander" data-pt="Praia de San Lorenzo e baía de Santander">Playa de San Lorenzo y bahía de Santander</li>
+            <li data-es="Fabada, cachopo y quesos con vistas al Cantábrico" data-en="Fabada, cachopo and cheeses overlooking the Cantabrian" data-pt="Fabada, cachopo e queijos com vista para o Cantábrico">Fabada, cachopo y quesos con vistas al Cantábrico</li>
+          </ul>
+        </div>
+      </div>
+      <div class="city bcn">
+        <div class="city-img car">
+          <div class="slide active" style="background-image:url('img/barcelona.jpg')"></div>
+          <div class="slide" style="background-image:url('img/barcelona-2.jpg')"></div>
+          <button class="c-btn c-prev" aria-label="Anterior">&#8249;</button>
+          <button class="c-btn c-next" aria-label="Siguiente">&#8250;</button>
+          <span class="c-label">Barcelona</span>
+        </div>
+        <div class="city-body">
+          <p data-es="Modernismo, mar Mediterráneo y una de las gastronomías más vibrantes de Europa." data-en="Modernist architecture, the Mediterranean and one of Europe's most vibrant food scenes." data-pt="Modernismo, mar Mediterrâneo e uma das gastronomias mais vibrantes da Europa.">Modernismo, mar Mediterráneo y una de las gastronomías más vibrantes de Europa.</p>
+          <ul>
+            <li data-es="Sagrada Família y Park Güell" data-en="Sagrada Família and Park Güell" data-pt="Sagrada Família e Park Güell">Sagrada Família y Park Güell</li>
+            <li data-es="Museu Egipci: piezas de las tierras bíblicas" data-en="Egyptian Museum: artifacts from Bible lands" data-pt="Museu Egípcio: peças das terras bíblicas">Museu Egipci: piezas de las tierras bíblicas</li>
+            <li data-es="Barrio Gótico y paseo junto al mar" data-en="Gothic Quarter and seaside stroll" data-pt="Bairro Gótico e passeio à beira-mar">Barrio Gótico y paseo junto al mar</li>
+            <li data-es="Tapas y vermut como un barcelonés" data-en="Tapas and vermouth like a local" data-pt="Tapas e vermute como um barcelonês">Tapas y vermut como un barcelonés</li>
+          </ul>
+        </div>
+      </div>
+      <div class="city svq">
+        <div class="city-img car">
+          <div class="slide active" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Plaza%20de%20Espana%20-%20Sevilla.jpg?width=1200')"></div>
+          <div class="slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Real%20Alc%C3%A1zar%20de%20Sevilla%2C%20Sevilla%20(42052074324).jpg?width=1200')"></div>
+          <button class="c-btn c-prev" aria-label="Anterior">&#8249;</button>
+          <button class="c-btn c-next" aria-label="Siguiente">&#8250;</button>
+          <span class="c-label">Sevilla</span>
+        </div>
+        <div class="city-body">
+          <p data-es="La cuna de la Biblia del Oso de Casiodoro de Reina, azahar, flamenco y el sur más auténtico." data-en="Home of Casiodoro de Reina's 'Biblia del Oso', orange blossom, flamenco and the most authentic south." data-pt="O berço da 'Biblia del Oso' de Casiodoro de Reina, flor de laranjeira, flamenco e o sul mais autêntico.">La cuna de la Biblia del Oso de Casiodoro de Reina, azahar, flamenco y el sur más auténtico.</p>
+          <ul>
+            <li data-es="Monasterio de San Isidoro del Campo: historia de Casiodoro de Reina" data-en="San Isidoro del Campo Monastery: story of Casiodoro de Reina" data-pt="Mosteiro de San Isidoro del Campo: história de Casiodoro de Reina">Monasterio de San Isidoro del Campo: historia de Casiodoro de Reina</li>
+            <li data-es="Real Alcázar y barrio de Santa Cruz" data-en="Royal Alcázar and Santa Cruz quarter" data-pt="Real Alcázar e bairro de Santa Cruz">Real Alcázar y barrio de Santa Cruz</li>
+            <li data-es="Triana y espectáculo de flamenco" data-en="Triana and a flamenco show" data-pt="Triana e espetáculo de flamenco">Triana y espectáculo de flamenco</li>
+            <li data-es="Tapeo sevillano al atardecer" data-en="Sevillian tapas at sunset" data-pt="Tapas sevilhanas ao entardecer">Tapeo sevillano al atardecer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="packs">
+  <div class="container">
+    <span class="section-tag" data-es="Los packs" data-en="Packages" data-pt="Pacotes">Los packs</span>
+    <h2 class="section-title" data-es="Elige cuántos días tienes; nosotros hacemos el resto"
+        data-en="Choose how many days you have; we do the rest"
+        data-pt="Escolha quantos dias você tem; nós fazemos o resto">Elige cuántos días tienes; nosotros hacemos el resto</h2>
+    <p class="section-sub" data-es="Todos los packs incluyen lo siguiente: alojamiento en Airbnb con hermanos, desayuno, todos los transportes (aeropuerto incluido), itinerario completo con entradas y guía local. Comidas y cenas no incluidas: te recomendamos dónde comer y el guía te acompaña para que comas como un local. Disponibles ahora: Madrid, Norte de España y el combinado. Barcelona y Sevilla, muy pronto."
+       data-en="Every package includes the following: Airbnb stay with brothers, breakfast, all transport (airport included), a full itinerary with tickets and a local guide. Lunches and dinners not included: we recommend where to eat and the guide joins you so you eat like a local. Available now: Madrid, North of Spain and the combo. Barcelona and Seville, very soon."
+       data-pt="Todos os pacotes incluem o seguinte: hospedagem em Airbnb com irmãos, café da manhã, todo o transporte (aeroporto incluído), roteiro completo com ingressos e guia local. Almoços e jantares não incluídos: recomendamos onde comer e o guia acompanha você para comer como um local. Disponíveis agora: Madri, Norte da Espanha e o combinado. Barcelona e Sevilha, em breve.">Todos los packs incluyen lo siguiente: alojamiento en Airbnb con hermanos, desayuno, todos los transportes (aeropuerto incluido), itinerario completo con entradas y guía local. Comidas y cenas no incluidas: te recomendamos dónde comer y el guía te acompaña para que comas como un local. Disponibles ahora: Madrid, Norte de España y el combinado. Barcelona y Sevilla, muy pronto.</p>
+    <div class="packs-grid">
+      <div class="pack">
+        <div class="pack-flag" data-es="Disponible ahora" data-en="Available now" data-pt="Disponível agora">Disponible ahora</div>
+        <h3 data-es="Pack Esencial · 3 días" data-en="Essential Pack · 3 days" data-pt="Pacote Essencial · 3 dias">Pack Esencial · 3 días</h3>
+        <div class="pack-city">Madrid</div>
+        <div class="price"><span class="from" data-es="desde" data-en="from" data-pt="a partir de">desde</span> 150€ <small data-es="/persona" data-en="/person" data-pt="/pessoa">/persona</small></div>
+        <div class="inc" data-es="Incluye lo siguiente:" data-en="Includes the following:" data-pt="Inclui o seguinte:">Incluye lo siguiente:</div>
+        <ul>
+          <li data-es="2 noches en Airbnb con hermanos · desayuno incluido" data-en="2 nights in an Airbnb with brothers · breakfast included" data-pt="2 noites em Airbnb com irmãos · café da manhã incluído">2 noches en Airbnb con hermanos · desayuno incluido</li>
+          <li data-es="Traslados aeropuerto y transporte urbano" data-en="Airport transfers and city transport" data-pt="Traslados do aeroporto e transporte urbano">Traslados aeropuerto y transporte urbano</li>
+          <li data-es="Prado, Retiro y Madrid de los Austrias" data-en="The Prado, Retiro and Habsburg Madrid" data-pt="Prado, Retiro e a Madri dos Áustrias">Prado, Retiro y Madrid de los Austrias</li>
+          <li data-es="Alcalá de Henares (tema bíblico) · Toledo o Aranjuez en coche" data-en="Alcalá de Henares (Bible theme) · Toledo or Aranjuez by car" data-pt="Alcalá de Henares (tema bíblico) · Toledo ou Aranjuez de carro">Alcalá de Henares (tema bíblico) · Toledo o Aranjuez en coche</li>
+          <li data-es="Actividades con hermanos, aire libre y vida nocturna" data-en="Activities with brothers, outdoors and nightlife" data-pt="Atividades com irmãos, ao ar livre e vida noturna">Actividades con hermanos, aire libre y vida nocturna</li>
+        </ul>
+        <a href="#contacto" class="btn" data-es="Me interesa" data-en="I&#39;m interested" data-pt="Tenho interesse">Me interesa</a>
+      </div>
+      <div class="pack">
+        <div class="pack-flag" data-es="Disponible ahora" data-en="Available now" data-pt="Disponível agora">Disponible ahora</div>
+        <h3 data-es="Pack Norte de España · 3 días" data-en="North of Spain Pack · 3 days" data-pt="Pacote Norte da Espanha · 3 dias">Pack Norte de España · 3 días</h3>
+        <div class="pack-city" data-es="León + Oviedo + Gijón + Santander" data-en="León + Oviedo + Gijón + Santander" data-pt="León + Oviedo + Gijón + Santander">León + Oviedo + Gijón + Santander</div>
+        <div class="price"><span class="from" data-es="desde" data-en="from" data-pt="a partir de">desde</span> 150€ <small data-es="/persona" data-en="/person" data-pt="/pessoa">/persona</small></div>
+        <div class="inc" data-es="Incluye lo siguiente:" data-en="Includes the following:" data-pt="Inclui o seguinte:">Incluye lo siguiente:</div>
+        <ul>
+          <li data-es="2 noches en Airbnb con hermanos · desayuno incluido" data-en="2 nights in an Airbnb with brothers · breakfast included" data-pt="2 noites em Airbnb com irmãos · café da manhã incluído">2 noches en Airbnb con hermanos · desayuno incluido</li>
+          <li data-es="Coche y traslados por todo el norte" data-en="Car and transfers across the north" data-pt="Carro e traslados por todo o norte">Coche y traslados por todo el norte</li>
+          <li data-es="León: Biblia mozárabe del año 960 en San Isidoro" data-en="León: 10th-century Mozarabic Bible at San Isidoro" data-pt="León: Bíblia moçárabe do ano 960 em San Isidoro">León: Biblia mozárabe del año 960 en San Isidoro</li>
+          <li data-es="Playas, montaña y sidrerías: aire libre con hermanos" data-en="Beaches, mountains and cider houses: outdoors with brothers" data-pt="Praias, montanha e sidrarias: ar livre com irmãos">Playas, montaña y sidrerías: aire libre con hermanos</li>
+          <li data-es="Gastronomía norteña: fabada, cachopo y quesos" data-en="Northern cuisine: fabada, cachopo and cheeses" data-pt="Gastronomia do norte: fabada, cachopo e queijos">Gastronomía norteña: fabada, cachopo y quesos</li>
+        </ul>
+        <a href="#contacto" class="btn" data-es="Me interesa" data-en="I&#39;m interested" data-pt="Tenho interesse">Me interesa</a>
+      </div>
+      <div class="pack highlight">
+        <div class="pack-flag" data-es="Disponible ahora" data-en="Available now" data-pt="Disponível agora">Disponible ahora</div>
+        <h3 data-es="Pack Madrid + Norte · 6 días" data-en="Madrid + North Pack · 6 days" data-pt="Pacote Madri + Norte · 6 dias">Pack Madrid + Norte · 6 días</h3>
+        <div class="pack-city" data-es="Los dos viajes completos" data-en="Both trips in full" data-pt="As duas viagens completas">Los dos viajes completos</div>
+        <div class="price"><span class="from" data-es="desde" data-en="from" data-pt="a partir de">desde</span> 400€ <small data-es="/persona" data-en="/person" data-pt="/pessoa">/persona</small></div>
+        <div class="inc" data-es="Incluye lo siguiente:" data-en="Includes the following:" data-pt="Inclui o seguinte:">Incluye lo siguiente:</div>
+        <ul>
+          <li data-es="5 noches en Airbnb con hermanos · desayuno incluido" data-en="5 nights in an Airbnb with brothers · breakfast included" data-pt="5 noites em Airbnb com irmãos · café da manhã incluído">5 noches en Airbnb con hermanos · desayuno incluido</li>
+          <li data-es="Todo el viaje de Madrid: Prado, Alcalá, Toledo o Aranjuez" data-en="The full Madrid trip: Prado, Alcalá, Toledo or Aranjuez" data-pt="Toda a viagem de Madri: Prado, Alcalá, Toledo ou Aranjuez">Todo el viaje de Madrid: Prado, Alcalá, Toledo o Aranjuez</li>
+          <li data-es="Todo el viaje del norte: León, Oviedo, Gijón y Santander" data-en="The full northern trip: León, Oviedo, Gijón and Santander" data-pt="Toda a viagem do norte: León, Oviedo, Gijón e Santander">Todo el viaje del norte: León, Oviedo, Gijón y Santander</li>
+          <li data-es="Traslado entre Madrid y el norte incluido" data-en="Transfer between Madrid and the north included" data-pt="Traslado entre Madri e o norte incluído">Traslado entre Madrid y el norte incluido</li>
+          <li data-es="Actividades con hermanos, aire libre y vida nocturna" data-en="Activities with brothers, outdoors and nightlife" data-pt="Atividades com irmãos, ao ar livre e vida noturna">Actividades con hermanos, aire libre y vida nocturna</li>
+        </ul>
+        <a href="#contacto" class="btn" data-es="Me interesa" data-en="I&#39;m interested" data-pt="Tenho interesse">Me interesa</a>
+      </div>
+    </div>
+    <p class="packs-note" data-es="Precios por persona según temporada. No incluyen comidas, cenas ni vuelos internacionales. ¿Solo quieres el norte? Norte de España también disponible en 3 días."
+       data-en="Prices per person depending on season. Lunches, dinners and international flights not included. Just want the north? North of Spain is also available as a 3-day trip."
+       data-pt="Preços por pessoa conforme a temporada. Almoços, jantares e voos internacionais não incluídos. Só quer o norte? Norte da Espanha também disponível em 3 dias.">Precios por persona según temporada. No incluyen comidas, cenas ni vuelos internacionales. ¿Solo quieres el norte? Norte de España también disponible en 3 días.</p>
+    <div class="extras-grid">
+      <div class="extra-card">
+        <h3 data-es="🧭 Viaje a medida" data-en="🧭 Tailor-made trip" data-pt="🧭 Viagem sob medida">🧭 Viaje a medida</h3>
+        <p data-es="Configura tu propia ruta combinando los destinos como quieras, con un mínimo de dos noches por sitio. Pide presupuesto sin compromiso." data-en="Build your own route combining destinations however you like, with a minimum of two nights per place. Ask for a free quote." data-pt="Monte a sua própria rota combinando os destinos como quiser, com um mínimo de duas noites por lugar. Peça um orçamento sem compromisso.">Configura tu propia ruta combinando los destinos como quieras, con un mínimo de dos noches por sitio. Pide presupuesto sin compromiso.</p>
+      </div>
+      <div class="extra-card">
+        <h3 data-es="🍷 Ruta gastronómica (extra opcional)" data-en="🍷 Food route (optional extra)" data-pt="🍷 Rota gastronômica (extra opcional)">🍷 Ruta gastronómica (extra opcional)</h3>
+        <p data-es="Añade a cualquier pack una ruta gastronómica: mercados, tapas y platos típicos de cada ciudad acompañado del guía. Suplemento por persona; consulta el precio." data-en="Add a food route to any package: markets, tapas and each city's signature dishes with the guide. Per-person supplement; ask for the price." data-pt="Adicione a qualquer pacote uma rota gastronômica: mercados, tapas e pratos típicos de cada cidade com o guia. Suplemento por pessoa; consulte o preço.">Añade a cualquier pack una ruta gastronómica: mercados, tapas y platos típicos de cada ciudad acompañado del guía. Suplemento por persona; consulta el precio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proximamente">
+  <div class="container">
+    <span class="section-tag" data-es="Próximamente" data-en="Coming soon" data-pt="Em breve">Próximamente</span>
+    <h2 class="section-title" data-es="Los siguientes viajes" data-en="Coming next" data-pt="As próximas viagens">Los siguientes viajes</h2>
+    <p class="section-sub" data-es="Barcelona y Sevilla están en preparación. Escríbenos y te avisamos en cuanto se abran." data-en="Barcelona and Seville are in the works. Write to us and we will let you know as soon as they open." data-pt="Barcelona e Sevilha estão em preparação. Escreva para nós e avisaremos assim que abrirem.">Barcelona y Sevilla están en preparación. Escríbenos y te avisamos en cuanto se abran.</p>
+    <div class="packs-grid">
+      <div class="pack soon-pack">
+        <div class="pack-flag soon" data-es="Próximamente" data-en="Coming soon" data-pt="Em breve">Próximamente</div>
+        <h3 data-es="Pack Descubre · 5 días" data-en="Discover Pack · 5 days" data-pt="Pacote Descubra · 5 dias">Pack Descubre · 5 días</h3>
+        <div class="pack-city" data-es="Madrid + Barcelona" data-en="Madrid + Barcelona" data-pt="Madri + Barcelona">Madrid + Barcelona</div>
+        <div class="price"><span class="from" data-es="desde" data-en="from" data-pt="a partir de">desde</span> 400€ <small data-es="/persona" data-en="/person" data-pt="/pessoa">/persona</small></div>
+        <div class="inc" data-es="Incluye lo siguiente:" data-en="Includes the following:" data-pt="Inclui o seguinte:">Incluye lo siguiente:</div>
+        <ul>
+          <li data-es="4 noches en Airbnb con hermanos · desayuno incluido" data-en="4 nights in an Airbnb with brothers · breakfast included" data-pt="4 noites em Airbnb com irmãos · café da manhã incluído">4 noches en Airbnb con hermanos · desayuno incluido</li>
+          <li data-es="Todos los traslados + tren entre ciudades" data-en="All transfers + train between cities" data-pt="Todos os traslados + trem entre cidades">Todos los traslados + tren entre ciudades</li>
+          <li data-es="Itinerario completo con entradas" data-en="Full itinerary with tickets" data-pt="Roteiro completo com ingressos">Itinerario completo con entradas</li>
+          <li data-es="2 visitas de historia bíblica" data-en="2 biblical-history visits" data-pt="2 visitas de história bíblica">2 visitas de historia bíblica</li>
+          <li data-es="Reunión con congregación local + tarde de ocio" data-en="Meeting with a local congregation + leisure evening" data-pt="Reunião com congregação local + tarde de lazer">Reunión con congregación local + tarde de ocio</li>
+        </ul>
+        <a href="#contacto" class="btn" data-es="Me interesa" data-en="I&#39;m interested" data-pt="Tenho interesse">Me interesa</a>
+      </div>
+      <div class="pack soon-pack">
+        <div class="pack-flag soon" data-es="Próximamente" data-en="Coming soon" data-pt="Em breve">Próximamente</div>
+        <h3 data-es="Pack Completo · 7 días" data-en="Complete Pack · 7 days" data-pt="Pacote Completo · 7 dias">Pack Completo · 7 días</h3>
+        <div class="pack-city" data-es="Barcelona + Madrid + Sevilla" data-en="Barcelona + Madrid + Seville" data-pt="Barcelona + Madri + Sevilha">Barcelona + Madrid + Sevilla</div>
+        <div class="price"><span class="from" data-es="desde" data-en="from" data-pt="a partir de">desde</span> 600€ <small data-es="/persona" data-en="/person" data-pt="/pessoa">/persona</small></div>
+        <div class="inc" data-es="Incluye lo siguiente:" data-en="Includes the following:" data-pt="Inclui o seguinte:">Incluye lo siguiente:</div>
+        <ul>
+          <li data-es="6 noches en Airbnb con hermanos · desayuno incluido" data-en="6 nights in an Airbnb with brothers · breakfast included" data-pt="6 noites em Airbnb com irmãos · café da manhã incluído">6 noches en Airbnb con hermanos · desayuno incluido</li>
+          <li data-es="Todos los traslados + trenes AVE entre ciudades" data-en="All transfers + high-speed trains between cities" data-pt="Todos os traslados + trens de alta velocidade entre cidades">Todos los traslados + trenes AVE entre ciudades</li>
+          <li data-es="Itinerario completo con entradas" data-en="Full itinerary with tickets" data-pt="Roteiro completo com ingressos">Itinerario completo con entradas</li>
+          <li data-es="Ruta completa de historia bíblica en España" data-en="Complete biblical-history route in Spain" data-pt="Rota completa de história bíblica na Espanha">Ruta completa de historia bíblica en España</li>
+          <li data-es="Reuniones y actividades con congregaciones locales" data-en="Meetings and activities with local congregations" data-pt="Reuniões e atividades com congregações locais">Reuniones y actividades con congregaciones locales</li>
+        </ul>
+        <a href="#contacto" class="btn" data-es="Me interesa" data-en="I&#39;m interested" data-pt="Tenho interesse">Me interesa</a>
+      </div>
+      <div class="pack soon-pack">
+        <div class="pack-flag soon" data-es="Próximamente" data-en="Coming soon" data-pt="Em breve">Próximamente</div>
+        <h3 data-es="Pack Norte y Sur · 10 días" data-en="North &amp; South Pack · 10 days" data-pt="Pacote Norte e Sul · 10 dias">Pack Norte y Sur · 10 días</h3>
+        <div class="pack-city" data-es="Barcelona + Madrid + Sevilla + Norte de España" data-en="Barcelona + Madrid + Seville + North of Spain" data-pt="Barcelona + Madri + Sevilha + Norte da Espanha">Barcelona + Madrid + Sevilla + Norte de España</div>
+        <div class="price"><span class="from" data-es="desde" data-en="from" data-pt="a partir de">desde</span> 800€ <small data-es="/persona" data-en="/person" data-pt="/pessoa">/persona</small></div>
+        <div class="inc" data-es="Incluye lo siguiente:" data-en="Includes the following:" data-pt="Inclui o seguinte:">Incluye lo siguiente:</div>
+        <ul>
+          <li data-es="9 noches en Airbnb con hermanos · desayuno incluido" data-en="9 nights in an Airbnb with brothers · breakfast included" data-pt="9 noites em Airbnb com irmãos · café da manhã incluído">9 noches en Airbnb con hermanos · desayuno incluido</li>
+          <li data-es="Todos los traslados + trenes entre ciudades" data-en="All transfers + trains between cities" data-pt="Todos os traslados + trens entre cidades">Todos los traslados + trenes entre ciudades</li>
+          <li data-es="Itinerario completo con entradas" data-en="Full itinerary with tickets" data-pt="Roteiro completo com ingressos">Itinerario completo con entradas</li>
+          <li data-es="Ruta de historia bíblica: de Sevilla a la Biblia mozárabe de León" data-en="Biblical-history route: from Seville to Leon&#39;s Mozarabic Bible" data-pt="Rota de história bíblica: de Sevilha à Bíblia moçárabe de León">Ruta de historia bíblica: de Sevilla a la Biblia mozárabe de León</li>
+          <li data-es="Reuniones y actividades con congregaciones locales" data-en="Meetings and activities with local congregations" data-pt="Reuniões e atividades com congregações locais">Reuniones y actividades con congregaciones locales</li>
+        </ul>
+        <a href="#contacto" class="btn" data-es="Me interesa" data-en="I&#39;m interested" data-pt="Tenho interesse">Me interesa</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="itinerario" class="itinerary">
+  <div class="container">
+    <span class="section-tag" data-es="Disponible ahora" data-en="Available now" data-pt="Disponível agora">Disponible ahora</span>
+    <h2 class="section-title" data-es="El viaje de Madrid, al detalle" data-en="The Madrid trip, in detail" data-pt="A viagem de Madri, em detalhe">El viaje de Madrid, al detalle</h2>
+    <p class="section-sub" data-es="Así es el viaje de Madrid: excursiones en coche, historia bíblica, hermandad y la mejor gastronomía. También puedes viajar ya al norte de España, o combinar los dos. Barcelona y Sevilla, muy pronto." data-en="This is the Madrid trip: car excursions, Bible history, brotherhood and superb food. You can also travel to northern Spain right now, or combine both. Barcelona and Seville, very soon." data-pt="Assim é a viagem de Madri: passeios de carro, história bíblica, fraternidade e a melhor gastronomia. Você também já pode viajar ao norte da Espanha, ou combinar as duas. Barcelona e Sevilha, em breve.">Así es el viaje de Madrid: excursiones en coche, historia bíblica, hermandad y la mejor gastronomía. También puedes viajar ya al norte de España, o combinar los dos. Barcelona y Sevilla, muy pronto.</p>
+    <div class="timeline">
+      <div class="tl-item"><h3><span data-es="Día 1" data-en="Day 1" data-pt="Dia 1">Día 1</span> <span data-es="Madrid clásico y zona del Prado" data-en="Classic Madrid and the Prado area" data-pt="Madri clássica e a zona do Prado">Madrid clásico y zona del Prado</span></h3><p data-es="Recogida en el aeropuerto y paseo por el Madrid de los Austrias: Plaza Mayor, Palacio Real y Mercado de San Miguel. Por la tarde, Museo del Prado, paseo del arte y parque del Retiro. Cena de bienvenida con hermanos y primera noche madrileña por Gran Vía." data-en="Airport pickup and a walk through Habsburg Madrid: Plaza Mayor, Royal Palace and San Miguel Market. In the afternoon, the Prado Museum, the art promenade and Retiro Park. Welcome dinner with brothers and a first Madrid night on Gran Vía." data-pt="Busca no aeroporto e passeio pela Madri dos Áustrias: Plaza Mayor, Palácio Real e Mercado de San Miguel. À tarde, Museu do Prado, passeio da arte e parque do Retiro. Jantar de boas-vindas com irmãos e primeira noite madrilenha pela Gran Vía.">Recogida en el aeropuerto y paseo por el Madrid de los Austrias: Plaza Mayor, Palacio Real y Mercado de San Miguel. Por la tarde, Museo del Prado, paseo del arte y parque del Retiro. Cena de bienvenida con hermanos y primera noche madrileña por Gran Vía.</p></div>
+      <div class="tl-item"><h3><span data-es="Día 2" data-en="Day 2" data-pt="Dia 2">Día 2</span> <span data-es="Alcalá de Henares: tema bíblico" data-en="Alcalá de Henares: Bible theme" data-pt="Alcalá de Henares: tema bíblico">Alcalá de Henares: tema bíblico</span></h3><p data-es="Excursión a Alcalá de Henares, cuna de la Biblia Políglota Complutense: universidad, casco histórico y la apasionante historia de cómo se imprimió la Biblia en hebreo, griego, arameo y latín. Por la tarde, actividades al aire libre con hermanos locales y atardecer en el Templo de Debod. Noche de tapas por La Latina." data-en="Excursion to Alcalá de Henares, birthplace of the Complutensian Polyglot Bible: the university, the old town and the gripping story of how the Bible was printed in Hebrew, Greek, Aramaic and Latin. In the afternoon, outdoor activities with local brothers and sunset at the Temple of Debod. Tapas night in La Latina." data-pt="Passeio a Alcalá de Henares, berço da Bíblia Poliglota Complutense: universidade, centro histórico e a emocionante história de como a Bíblia foi impressa em hebraico, grego, aramaico e latim. À tarde, atividades ao ar livre com irmãos locais e pôr do sol no Templo de Debod. Noite de tapas em La Latina.">Excursión a Alcalá de Henares, cuna de la Biblia Políglota Complutense: universidad, casco histórico y la apasionante historia de cómo se imprimió la Biblia en hebreo, griego, arameo y latín. Por la tarde, actividades al aire libre con hermanos locales y atardecer en el Templo de Debod. Noche de tapas por La Latina.</p></div>
+      <div class="tl-item"><h3><span data-es="Día 3" data-en="Day 3" data-pt="Dia 3">Día 3</span> <span data-es="Toledo o jardines de Aranjuez, en coche" data-en="Toledo or the Aranjuez gardens, by car" data-pt="Toledo ou os jardins de Aranjuez, de carro">Toledo o jardines de Aranjuez, en coche</span></h3><p data-es="Excursión con transporte en coche a tu elección: Toledo, la ciudad de las tres culturas, con sus callejuelas, miradores y siglos de historia; o los jardines y el palacio de Aranjuez junto al Tajo. Comida de despedida y traslado al aeropuerto." data-en="Car excursion of your choice: Toledo, the city of three cultures, with its lanes, viewpoints and centuries of history; or the gardens and palace of Aranjuez by the Tagus. Farewell lunch and transfer to the airport." data-pt="Passeio de carro à sua escolha: Toledo, a cidade das três culturas, com suas vielas, mirantes e séculos de história; ou os jardins e o palácio de Aranjuez à beira do Tejo. Almoço de despedida e traslado ao aeroporto.">Excursión con transporte en coche a tu elección: Toledo, la ciudad de las tres culturas, con sus callejuelas, miradores y siglos de historia; o los jardines y el palacio de Aranjuez junto al Tajo. Comida de despedida y traslado al aeropuerto.</p></div>
+      <div class="tl-item"><h3><span data-es="¿Más días?" data-en="More days?" data-pt="Mais dias?">¿Más días?</span></h3><p data-es="Amplía el viaje para hacer las dos excursiones (Toledo y Aranjuez) y añade la ruta gastronómica opcional por Madrid y alrededores: mercados, tabernas centenarias y cocido madrileño." data-en="Extend the trip to do both excursions (Toledo and Aranjuez) and add the optional food route through Madrid and its surroundings: markets, century-old taverns and cocido madrileño." data-pt="Amplie a viagem para fazer os dois passeios (Toledo e Aranjuez) e adicione a rota gastronômica opcional por Madri e arredores: mercados, tabernas centenárias e cocido madrilenho.">Amplía el viaje para hacer las dos excursiones (Toledo y Aranjuez) y añade la ruta gastronómica opcional por Madrid y alrededores: mercados, tabernas centenarias y cocido madrileño.</p></div>
+    </div>
+    <div class="cities-grid" style="margin-top:44px">
+      <div class="city alc">
+        <div class="city-img" data-es="Alcalá de Henares" data-en="Alcalá de Henares" data-pt="Alcalá de Henares">Alcalá de Henares</div>
+        <div class="city-body"><p data-es="Cuna de la Biblia Políglota Complutense y ciudad universitaria Patrimonio de la Humanidad." data-en="Birthplace of the Complutensian Polyglot Bible and a World Heritage university city." data-pt="Berço da Bíblia Poliglota Complutense e cidade universitária Patrimônio da Humanidade.">Cuna de la Biblia Políglota Complutense y ciudad universitaria Patrimonio de la Humanidad.</p></div>
+      </div>
+      <div class="city tol">
+        <div class="city-img">Toledo</div>
+        <div class="city-body"><p data-es="La ciudad de las tres culturas: murallas, miradores sobre el Tajo y siglos de historia. Ida y vuelta en coche." data-en="The city of three cultures: walls, viewpoints over the Tagus and centuries of history. Round trip by car." data-pt="A cidade das três culturas: muralhas, mirantes sobre o Tejo e séculos de história. Ida e volta de carro.">La ciudad de las tres culturas: murallas, miradores sobre el Tajo y siglos de historia. Ida y vuelta en coche.</p></div>
+      </div>
+      <div class="city arj">
+        <div class="city-img">Aranjuez</div>
+        <div class="city-body"><p data-es="Jardines reales junto al Tajo, fuentes y paseos en un entorno Patrimonio de la Humanidad." data-en="Royal gardens by the Tagus, fountains and promenades in a World Heritage setting." data-pt="Jardins reais à beira do Tejo, fontes e passeios em um cenário Patrimônio da Humanidade.">Jardines reales junto al Tajo, fuentes y paseos en un entorno Patrimonio de la Humanidad.</p></div>
+      </div>
+      <div class="city pra">
+        <div class="city-img" data-es="Madrid y el Prado" data-en="Madrid and the Prado" data-pt="Madri e o Prado">Madrid y el Prado</div>
+        <div class="city-body"><p data-es="El paseo del arte, el Retiro, actividades al aire libre con hermanos y la vida nocturna madrileña." data-en="The art promenade, the Retiro, outdoor activities with brothers and Madrid's nightlife." data-pt="O passeio da arte, o Retiro, atividades ao ar livre com irmãos e a vida noturna madrilenha.">El paseo del arte, el Retiro, actividades al aire libre con hermanos y la vida nocturna madrileña.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="espiritual" class="spiritual">
+  <div class="container">
+    <span class="section-tag" data-es="Actividades" data-en="Activities" data-pt="Atividades">Actividades</span>
+    <h2 class="section-title" data-es="Un viaje que también alimenta la fe" data-en="A trip that also builds up your faith" data-pt="Uma viagem que também fortalece a fé">Un viaje que también alimenta la fe</h2>
+    <p class="section-sub" data-es="Cada pack reserva tiempo para lo que más importa: compartir con los hermanos y conocer la historia de la Biblia en España."
+       data-en="Every package sets aside time for what matters most: sharing with the brothers and discovering the history of the Bible in Spain."
+       data-pt="Cada pacote reserva tempo para o que mais importa: conviver com os irmãos e conhecer a história da Bíblia na Espanha.">Cada pack reserva tiempo para lo que más importa: compartir con los hermanos y conocer la historia de la Biblia en España.</p>
+    <div class="features-grid">
+      <div class="feature"><div class="icon">🏛️</div>
+        <h3 data-es="Reuniones con congregaciones locales" data-en="Meetings with local congregations" data-pt="Reuniões com congregações locais">Reuniones con congregaciones locales</h3>
+        <p data-es="Coordinamos la asistencia a reuniones durante tu estancia, en tu idioma siempre que sea posible." data-en="We coordinate attending meetings during your stay, in your language whenever possible." data-pt="Coordenamos a assistência a reuniões durante a sua estadia, no seu idioma sempre que possível.">Coordinamos la asistencia a reuniones durante tu estancia, en tu idioma siempre que sea posible.</p></div>
+      <div class="feature"><div class="icon">📖</div>
+        <h3 data-es="Ruta de la Biblia en España" data-en="The Bible-in-Spain route" data-pt="Rota da Bíblia na Espanha">Ruta de la Biblia en España</h3>
+        <p data-es="De la Biblia del Oso a la Políglota Complutense: la apasionante historia de quienes tradujeron la Biblia al español." data-en="From the 'Biblia del Oso' to the Complutensian Polyglot: the gripping story of those who translated the Bible into Spanish." data-pt="Da 'Biblia del Oso' à Poliglota Complutense: a emocionante história de quem traduziu a Bíblia ao espanhol.">De la Biblia del Oso a la Políglota Complutense: la apasionante historia de quienes tradujeron la Biblia al español.</p></div>
+      <div class="feature"><div class="icon">☕</div>
+        <h3 data-es="Encuentros con hermanos" data-en="Time with the brothers" data-pt="Encontros com irmãos">Encuentros con hermanos</h3>
+        <p data-es="Cenas, paseos y tardes de convivencia con hermanos españoles y con el resto del grupo: llegarás como turista y te irás con amigos." data-en="Dinners, walks and evenings with Spanish brothers and the rest of the group: you'll arrive as a tourist and leave with friends." data-pt="Jantares, passeios e tardes de convivência com irmãos espanhóis e com o resto do grupo: você chega como turista e vai embora com amigos.">Cenas, paseos y tardes de convivencia con hermanos españoles y con el resto del grupo: llegarás como turista y te irás con amigos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="container">
+    <span class="section-tag" data-es="Preguntas frecuentes" data-en="FAQ" data-pt="Perguntas frequentes">Preguntas frecuentes</span>
+    <h2 class="section-title" data-es="Resolvemos tus dudas" data-en="Your questions, answered" data-pt="Tiramos as suas dúvidas">Resolvemos tus dudas</h2>
+    <details>
+      <summary data-es="¿Qué incluye exactamente el precio?" data-en="What exactly does the price include?" data-pt="O que exatamente o preço inclui?">¿Qué incluye exactamente el precio?</summary>
+      <p data-es="Alojamiento en Airbnb con hermanos con desayuno incluido, todos los traslados (aeropuerto, ciudad y trenes entre ciudades), entradas del itinerario y acompañamiento de guía local. No incluye comidas, cenas ni vuelos internacionales; eso sí, te recomendamos dónde comer y el guía te acompaña. Puedes añadir la ruta gastronómica como extra." data-en="Airbnb stay with brothers with breakfast included, all transfers (airport, city and intercity trains), itinerary tickets and a local guide. Lunches, dinners and international flights are not included; that said, we recommend where to eat and the guide joins you. You can add the food route as an extra." data-pt="Hospedagem em Airbnb com irmãos com café da manhã incluído, todos os traslados (aeroporto, cidade e trens entre cidades), ingressos do roteiro e guia local. Não inclui almoços, jantares nem voos internacionais; mas recomendamos onde comer e o guia acompanha você. Você pode adicionar a rota gastronômica como extra.">Alojamiento en Airbnb con hermanos con desayuno incluido, todos los traslados (aeropuerto, ciudad y trenes entre ciudades), entradas del itinerario y acompañamiento de guía local. No incluye comidas, cenas ni vuelos internacionales; eso sí, te recomendamos dónde comer y el guía te acompaña. Puedes añadir la ruta gastronómica como extra.</p>
+    </details>
+    <details>
+      <summary data-es="¿Puedo viajar solo/a o debo ir en grupo?" data-en="Can I travel alone or must I join a group?" data-pt="Posso viajar sozinho/a ou preciso ir em grupo?">¿Puedo viajar solo/a o debo ir en grupo?</summary>
+      <p data-es="Ambas opciones. Organizamos salidas en grupo con fechas fijas (ideales para conocer a otros hermanos) y también viajes a medida para familias o parejas." data-en="Both. We organize group departures on fixed dates (great for meeting other brothers) as well as tailor-made trips for families or couples." data-pt="Ambas as opções. Organizamos saídas em grupo com datas fixas (ideais para conhecer outros irmãos) e também viagens sob medida para famílias ou casais.">Ambas opciones. Organizamos salidas en grupo con fechas fijas (ideales para conocer a otros hermanos) y también viajes a medida para familias o parejas.</p>
+    </details>
+    <details>
+      <summary data-es="¿En qué idioma son las visitas?" data-en="What language are the tours in?" data-pt="Em que idioma são as visitas?">¿En qué idioma son las visitas?</summary>
+      <p data-es="En español, inglés o portugués, según el grupo. Las reuniones con congregaciones se coordinan en tu idioma siempre que haya congregación disponible." data-en="Spanish, English or Portuguese, depending on the group. Congregation meetings are arranged in your language whenever a congregation is available." data-pt="Em espanhol, inglês ou português, conforme o grupo. As reuniões com congregações são coordenadas no seu idioma sempre que houver congregação disponível.">En español, inglés o portugués, según el grupo. Las reuniones con congregaciones se coordinan en tu idioma siempre que haya congregación disponible.</p>
+    </details>
+    <details>
+      <summary data-es="¿El ritmo del viaje es muy intenso?" data-en="Is the pace of the trip very intense?" data-pt="O ritmo da viagem é muito intenso?">¿El ritmo del viaje es muy intenso?</summary>
+      <p data-es="Está pensado para ver lo máximo en pocos días, pero con equilibrio: cada día hay tiempo libre y las distancias se cubren en tren de alta velocidad para no perder tiempo." data-en="It is designed to see as much as possible in a few days, but balanced: there is free time every day and distances are covered by high-speed train to save time." data-pt="Foi pensado para ver o máximo em poucos dias, mas com equilíbrio: todos os dias há tempo livre e as distâncias são percorridas de trem de alta velocidade para não perder tempo.">Está pensado para ver lo máximo en pocos días, pero con equilibrio: cada día hay tiempo libre y las distancias se cubren en tren de alta velocidad para no perder tiempo.</p>
+    </details>
+    <details>
+      <summary data-es="¿Cómo reservo?" data-en="How do I book?" data-pt="Como faço a reserva?">¿Cómo reservo?</summary>
+      <p data-es="Envíanos el formulario o escríbenos por WhatsApp. Te preparamos una propuesta sin compromiso y, si te encaja, la confirmas con una señal del 20%." data-en="Send us the form or message us on WhatsApp. We'll prepare a no-obligation proposal and, if you like it, you confirm with a 20% deposit." data-pt="Envie o formulário ou fale conosco pelo WhatsApp. Preparamos uma proposta sem compromisso e, se gostar, você confirma com um sinal de 20%.">Envíanos el formulario o escríbenos por WhatsApp. Te preparamos una propuesta sin compromiso y, si te encaja, la confirmas con una señal del 20%.</p>
+    </details>
+  </div>
+</section>
+
+<section id="referidos" class="referral">
+  <div class="container">
+    <span class="section-tag" data-es="Programa de referidos" data-en="Referral program" data-pt="Programa de indicações">Programa de referidos</span>
+    <h2 class="section-title" data-es="¿Sabes de alguien que quiera viajar?" data-en="Know someone who wants to travel?" data-pt="Conhece alguém que queira viajar?">¿Sabes de alguien que quiera viajar?</h2>
+    <p data-es="Conviértete en co-partícipe: recomienda MyTripToSpain y recibe una recompensa por cada persona que contrate un pack gracias a ti." data-en="Become a co-participant: recommend MyTripToSpain and receive a reward for every person who books a package thanks to you." data-pt="Torne-se coparticipante: recomende a MyTripToSpain e receba uma recompensa por cada pessoa que contratar um pacote graças a você.">Conviértete en co-partícipe: recomienda MyTripToSpain y recibe una recompensa por cada persona que contrate un pack gracias a ti.</p>
+    <a class="btn" href="https://wa.me/34672712361?text=Hola%2C%20quiero%20ser%20co-part%C3%ADcipe%20de%20MyTripToSpain" target="_blank" rel="noopener" data-es="Quiero ser co-partícipe" data-en="I want to be a co-participant" data-pt="Quero ser coparticipante">Quiero ser co-partícipe</a>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <div class="container contact-wrap">
+    <div class="contact-info">
+      <span class="section-tag" data-es="Contacto" data-en="Contact" data-pt="Contato">Contacto</span>
+      <h2 class="section-title" data-es="Cuéntanos tu viaje" data-en="Tell us about your trip" data-pt="Conte-nos sobre a sua viagem">Cuéntanos tu viaje</h2>
+      <p data-es="Dinos cuántos días tienes, cuántos sois y qué te gustaría ver. Te respondemos en menos de 24 horas con una propuesta a tu medida."
+         data-en="Tell us how many days you have, how many of you are coming and what you'd like to see. We reply within 24 hours with a tailor-made proposal."
+         data-pt="Diga quantos dias você tem, quantas pessoas vêm e o que gostaria de ver. Respondemos em menos de 24 horas com uma proposta sob medida.">Dinos cuántos días tienes, cuántos sois y qué te gustaría ver. Te respondemos en menos de 24 horas con una propuesta a tu medida.</p>
+      <a class="wa-btn" href="https://wa.me/34672712361" target="_blank" rel="noopener">💬 <span data-es="Escríbenos por WhatsApp" data-en="Message us on WhatsApp" data-pt="Fale conosco pelo WhatsApp">Escríbenos por WhatsApp</span></a>
+      <br>
+      <a class="insta-link ig" href="https://www.instagram.com/mytriptospain" target="_blank" rel="noopener">📸 <span data-es="Mira fotos de los viajes en Instagram" data-en="See trip photos on Instagram" data-pt="Veja fotos das viagens no Instagram">Mira fotos de los viajes en Instagram</span></a>
+      <br>
+      <a class="insta-link tp" href="https://www.trustpilot.com/review/mytriptospain.com" target="_blank" rel="noopener">⭐ <span data-es="Lee las experiencias de otros" data-en="Read others' experiences" data-pt="Leia as experiências de outros">Lee las experiencias de otros</span></a>
+    </div>
+    <form id="tripForm">
+      <div class="form-row">
+        <div>
+          <label for="fname" data-es="Nombre" data-en="Name" data-pt="Nome">Nombre</label>
+          <input id="fname" required data-ph-es="Tu nombre" data-ph-en="Your name" data-ph-pt="Seu nome" placeholder="Tu nombre">
+        </div>
+        <div>
+          <label for="fcountry" data-es="País" data-en="Country" data-pt="País">País</label>
+          <input id="fcountry" data-ph-es="¿Desde dónde viajas?" data-ph-en="Where are you traveling from?" data-ph-pt="De onde você viaja?" placeholder="¿Desde dónde viajas?">
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="fpack" data-es="Pack" data-en="Package" data-pt="Pacote">Pack</label>
+          <select id="fpack">
+            <option value="3" selected data-es="Esencial · 3 días (Madrid)" data-en="Essential · 3 days (Madrid)" data-pt="Essencial · 3 dias (Madri)">Esencial · 3 días (Madrid)</option>
+            <option value="5" data-es="Descubre · 5 días (próximamente)" data-en="Discover · 5 days (coming soon)" data-pt="Descubra · 5 dias (em breve)">Descubre · 5 días (próximamente)</option>
+            <option value="7" data-es="Completo · 7 días (próximamente)" data-en="Complete · 7 days (coming soon)" data-pt="Completo · 7 dias (em breve)">Completo · 7 días (próximamente)</option>
+            <option value="10" data-es="Norte y Sur · 10 días (próximamente)" data-en="North &amp; South · 10 days (coming soon)" data-pt="Norte e Sul · 10 dias (em breve)">Norte y Sur · 10 días (próximamente)</option>
+            <option value="n3" data-es="Norte de España · 3 días" data-en="North of Spain · 3 days" data-pt="Norte da Espanha · 3 dias">Norte de España · 3 días</option>
+            <option value="mn6" data-es="Madrid + Norte · 6 días" data-en="Madrid + North · 6 days" data-pt="Madri + Norte · 6 dias">Madrid + Norte · 6 días</option>
+            <option value="custom" data-es="A medida (mín. 2 noches por sitio)" data-en="Tailor-made (min. 2 nights per place)" data-pt="Sob medida (mín. 2 noites por lugar)">A medida (mín. 2 noches por sitio)</option>
+          </select>
+        </div>
+        <div>
+          <label for="fpeople" data-es="Nº de personas" data-en="Number of people" data-pt="Nº de pessoas">Nº de personas</label>
+          <input id="fpeople" type="number" min="1" value="2">
+        </div>
+      </div>
+      <label for="fdates" data-es="Fechas aproximadas" data-en="Approximate dates" data-pt="Datas aproximadas">Fechas aproximadas</label>
+      <input id="fdates" data-ph-es="P. ej.: primera quincena de octubre" data-ph-en="E.g.: first half of October" data-ph-pt="Ex.: primeira quinzena de outubro" placeholder="P. ej.: primera quincena de octubre">
+      <label for="fmsg" data-es="Mensaje" data-en="Message" data-pt="Mensagem">Mensaje</label>
+      <textarea id="fmsg" rows="3" data-ph-es="Cuéntanos qué te gustaría ver o cualquier necesidad especial" data-ph-en="Tell us what you'd like to see or any special needs" data-ph-pt="Conte o que gostaria de ver ou qualquer necessidade especial" placeholder="Cuéntanos qué te gustaría ver o cualquier necesidad especial"></textarea>
+      <label class="check"><input type="checkbox" id="fgastro"> <span data-es="Añadir ruta gastronómica" data-en="Add the food route" data-pt="Adicionar rota gastronômica">Añadir ruta gastronómica</span></label>
+      <button type="submit" class="btn" data-es="Enviar solicitud por WhatsApp" data-en="Send request via WhatsApp" data-pt="Enviar pedido pelo WhatsApp">Enviar solicitud por WhatsApp</button>
+      <p class="form-note" data-es="Al enviar se abrirá WhatsApp con tu solicitud lista para mandar. Sin compromiso." data-en="Submitting opens WhatsApp with your request ready to send. No obligation." data-pt="Ao enviar, o WhatsApp abrirá com o seu pedido pronto. Sem compromisso.">Al enviar se abrirá WhatsApp con tu solicitud lista para mandar. Sin compromiso.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <div class="logo"><img src="img/logo.png" alt="Logo MyTripToSpain">MyTrip<span>ToSpain</span></div>
+      <p data-es="España en pocos días, entre hermanos." data-en="Spain in a few days, among brothers." data-pt="Espanha em poucos dias, entre irmãos.">España en pocos días, entre hermanos.</p>
+      <p>info@mytriptospain.com</p>
+      <p><a href="https://www.instagram.com/mytriptospain" target="_blank" rel="noopener" style="text-decoration:underline">Instagram</a> · <a href="https://www.trustpilot.com/review/mytriptospain.com" target="_blank" rel="noopener" style="text-decoration:underline" data-es="Experiencias" data-en="Reviews" data-pt="Experiências">Experiencias</a></p>
+    </div>
+    <p class="disclaimer" data-es="© 2026 MyTripToSpain. Iniciativa independiente de organización de viajes; no está afiliada a ninguna organización religiosa ni la representa."
+       data-en="© 2026 MyTripToSpain. An independent travel-organization initiative; not affiliated with, nor representing, any religious organization."
+       data-pt="© 2026 MyTripToSpain. Iniciativa independente de organização de viagens; não é afiliada a nenhuma organização religiosa nem a representa.">© 2026 MyTripToSpain. Iniciativa independiente de organización de viajes; no está afiliada a ninguna organización religiosa ni la representa.</p>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/34672712361" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<script>
+  var currentLang = 'es';
+
+  function setLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-' + lang + ']').forEach(function(el){
+      el.innerHTML = el.getAttribute('data-' + lang);
+    });
+    document.querySelectorAll('[data-ph-' + lang + ']').forEach(function(el){
+      el.placeholder = el.getAttribute('data-ph-' + lang);
+    });
+    document.querySelectorAll('.lang-switch button').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+  }
+
+  document.querySelectorAll('.city-img.car').forEach(function(c){
+    var s = c.querySelectorAll('.slide');
+    if(s.length < 2) return;
+    var i = 0, t;
+    function show(n){ s[i].classList.remove('active'); i = (n + s.length) % s.length; s[i].classList.add('active'); }
+    function auto(){ t = setInterval(function(){ show(i+1); }, 4000); }
+    function reset(){ clearInterval(t); auto(); }
+    c.querySelector('.c-prev').addEventListener('click', function(){ show(i-1); reset(); });
+    c.querySelector('.c-next').addEventListener('click', function(){ show(i+1); reset(); });
+    auto();
+  });
+
+  document.getElementById('tripForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var packSel = document.getElementById('fpack');
+    var packTxt = packSel.options[packSel.selectedIndex].text;
+    var intro = {es:'Hola, me interesa un viaje con MyTripToSpain.', en:'Hi, I am interested in a trip with MyTripToSpain.', pt:'Olá, tenho interesse em uma viagem com a MyTripToSpain.'};
+    var labels = {
+      es:{n:'Nombre', c:'País', p:'Pack', g:'Personas', d:'Fechas', m:'Mensaje'},
+      en:{n:'Name', c:'Country', p:'Package', g:'People', d:'Dates', m:'Message'},
+      pt:{n:'Nome', c:'País', p:'Pacote', g:'Pessoas', d:'Datas', m:'Mensagem'}
+    };
+    var L = labels[currentLang];
+    var msg = intro[currentLang] + '\n' +
+      L.n + ': ' + document.getElementById('fname').value + '\n' +
+      L.c + ': ' + document.getElementById('fcountry').value + '\n' +
+      L.p + ': ' + packTxt + '\n' +
+      L.g + ': ' + document.getElementById('fpeople').value + '\n' +
+      L.d + ': ' + document.getElementById('fdates').value + '\n' +
+      L.m + ': ' + document.getElementById('fmsg').value;
+    if(document.getElementById('fgastro').checked){
+      var g = {es:'Extra: ruta gastronómica', en:'Extra: food route', pt:'Extra: rota gastronômica'};
+      msg += '\n' + g[currentLang];
+    }
+    window.open('https://wa.me/34672712361?text=' + encodeURIComponent(msg), '_blank');
+  });
+</script>
+</body>
+</html>
